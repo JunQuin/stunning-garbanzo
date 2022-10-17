@@ -6,7 +6,7 @@
             <div class="container px-5 py-10 mx-auto">
                 @if(!isset($file))
                     <div class="flex flex-col text-center w-full mb-4">
-                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-red-500">
+                        <h1 class="w-1/5 mx-auto text-2xl font-medium title-font mb-4 bg-white text-red-500 rounded-lg animate-bounce">
                             Recibo no cargado
                         </h1>
                     </div>

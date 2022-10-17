@@ -32,7 +32,7 @@ class BitacoraController extends Controller
     public function create()
     {
         $file = DB::table('users')->select('bitacoras')->where('id', session('userId'))->first();
-        return view('files.upload-bitacora')->with(['file' => $file]);
+        return view('files.upload-bitacora')->with(['file' => $file->bitacoras]);
     }
 
     /**
@@ -75,7 +75,7 @@ class BitacoraController extends Controller
      * @param string $url
      * @return BinaryFileResponse
      */
-    public function show(string $url)
+    public function show(string $url):BinaryFileResponse
     {
         $path = public_path('files/bitacoras' . '/' . $url);
         // header
@@ -85,8 +85,8 @@ class BitacoraController extends Controller
         ];
         return response()->file($path, $header);
     }
-
     /**
+
      * Show the form for editing the specified resource.
      *
      * @param int $id

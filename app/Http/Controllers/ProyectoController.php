@@ -32,13 +32,12 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-//        $user = DB::table('users')->where('id', session('userId'))->first();
-        $asesor = DB::table('asesors')->get();
+        //        $user = DB::table('users')->where('id', session('userId'))->first();
+        // $asesor = DB::table('asesors')->get();
         $categoria = DB::table('categorias')->get();
-        $tipo = DB::table('tipos')->get();
         $sub_categoria = DB::table('sub_categorias')->get();
 
-        return view('registrar-proyecto', compact('asesor', 'categoria', 'tipo', 'sub_categoria'));
+        return view('registrar-proyecto', compact('categoria', 'sub_categoria'));
     }
 
     /**
@@ -50,32 +49,35 @@ class ProyectoController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'proyectoNombre' => ['required', 'max:100'],
             'proyectoDescripcion' => ['required', 'max:1000'],
-            'proyectoAsesor' => ['required'],
+            'proyectoAsesorNombre' => ['required'],
+            'proyectoAsesorCelular' => ['required'],
+            'proyectoAsesorCorreo' => ['required', 'email'],
             'participado' => ['required'],
-            'tipo' => ['required'],
             'categoria' => ['required'],
-            'sub-Categoria' => ['required'],
             'participante1_Nombre' => ['required'],
             'participante1_Apellidos' => ['required'],
             'participante1_Telefono' => ['required'],
-            'participante1_Correo' => ['required'],
+            'participante1_Correo' => ['required', 'email'],
             'participante1_InstitucionProcedencia' => ['required'],
             'participante1_NivelEducativo' => ['required'],
             'participante1_TallaPlayera' => ['required'],
-            'participante2_Nombre' => ['required'],
-            'participante2_Apellidos' => ['required'],
-            'participante2_Telefono' => ['required'],
-            'participante2_Correo' => ['required'],
-            'participante2_InstitucionProcedencia' => ['required'],
-            'participante2_NivelEducativo' => ['required'],
-            'participante2_TallaPlayera' => ['required'],
-
+            // 'participante2_Nombre' => ['required'],
+            // 'participante2_Apellidos' => ['required'],
+            // 'participante2_Telefono' => ['required'],
+            // 'participante2_Correo' => ['required', 'email'],
+            // 'participante2_InstitucionProcedencia' => ['required'],
+            // 'participante2_NivelEducativo' => ['required'],
+            // 'participante2_TallaPlayera' => ['required'],
         ]);
 
-//        dd(with(['mail'=> $request['participante1_Correo'],'pass' => $request['participante1_Telefono']]));
+        //        dd(with(['mail'=> $request['participante1_Correo'],'pass' => $request['participante1_Telefono']]));
+        if (DB::table('users')->where('email', $request['participante1_Correo'])->first()) {
+            return redirect()->route('error_registro');
+        }
 
         $user = User::create([
             /*            'id' => ['required', 'string', 'max:12', 'unique:users'],*/
@@ -84,9 +86,10 @@ class ProyectoController extends Controller
             'email' => $request['participante1_Correo'],
             'password' => Hash::make($request['participante1_Telefono']),
             'descripcion' => $request['proyectoDescripcion'],
-            'asesor' => $request['proyectoAsesor'],
+            'asesorNombre' => $request['proyectoAsesorNombre'],
+            'asesorCelular' => $request['proyectoAsesorCelular'],
+            'asesorEmail' => $request['proyectoAsesorCorreo'],
             'participado' => $request['participado'],
-            'tipo' => $request['tipo'],
             'categoria' => $request['categoria'],
             'subcategoria' => $request['sub-Categoria'],
             'participante1_Nombre' => $request['participante1_Nombre'],
@@ -163,14 +166,8 @@ class ProyectoController extends Controller
 
     public function dashboard()
     {
-//        dd(session('userId'));
         $userid = session('userId');
         $project = ClsDataGetter::dashboardData($userid);
         return view('dashboard')->with(['project' => $project]);
-    }
-
-    public function login()
-    {
-
     }
 }

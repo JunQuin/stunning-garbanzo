@@ -11,7 +11,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.css') }}"></script>
 </head>
-<body class="antialiased bg-body text-body font-body">
+<body class="antialiased bg-gray-900 text-body font-body">
 <div class="">
 
     <div class="flex h-screen justify-center items-center">
@@ -22,19 +22,19 @@
                 IMPORTANTE LEER!</h1>
 
             <h2 class="text-2xl mb-2 leading-tight font-heading text-green-500">Su correo de ingreso
-                es (Usuario): {{ __($mail) }}</h2>
+                es (Usuario): {{ __($mail??'') }}</h2>
 
-            <h2 class="text-2xl mb-2 leading-tight font-heading text-blue-500">Su contraseña es: {{ __($pass) }}</h2>
+            <h2 class="text-2xl mb-2 leading-tight font-heading text-blue-500">Su contraseña es: {{ __($pass ?? '') }}</h2>
 
             <h3 class="mb-2 uppercase leading-tight font-heading mt-8 mx-32 text-red-400 text-2xl">recuerde sus
                 datos de inicio sesión</h3>
-
-            <div class="my-4">
+{{-- TODO reactivar boton de redirecion --}}
+            {{-- <div class="my-4">
                 <a
                     href="{{ route('proyecto.dashboard') }}"
-                    class="inline-block items-center py-4 px-6 text-sm uppercase font-heading rounded-full transition duration-200 bg-green-400 shadow-lg shadow-green-500/50 hover:bg-green-500">Continuar
+                    class="inline-block items-center py-4 text-black px-6 text-sm uppercase font-heading rounded-full transition duration-200 bg-green-400 shadow-lg shadow-green-500/50 hover:bg-green-500">Continuar
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

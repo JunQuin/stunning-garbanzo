@@ -17,6 +17,7 @@ class UpdateUsersTableAddDocumentsColumn extends Migration
             $table->string('document',100)->nullable();
             $table->string('link',150)->nullable();
             $table->string('payment',120)->nullable();
+            $table->string('bitacoras',120)->nullable();
         });
     }
 

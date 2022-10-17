@@ -7,6 +7,7 @@ use App\Http\Controllers\ReciboController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,21 +48,6 @@ Route::resource('/video', VideoController::class)->middleware('auth');
 
 Route::resource('/recibo', ReciboController::class)->middleware('auth');
 
-Route::get('/conf', function () {
-
-    return view('confirmacion-registro')->with(['mail' => 'correobonito@gmail.com', 'pass' => '687AuxilioMePegaMiVieja']);
-});
-
-//Route::get('/pdf/{file}', function ($file) {
-    // file path
-//    $file = '1655143616_Tarea de 1Ro sec 180222.pdf';
-//
-//})->name('pdf');
-
-//Route::get('/registrar-proyecto', function (){
-//    return view('registrar-proyecto');
-//})->name('registrar-proyecto');
-
-//Route::post('/registrar-proyecto', function(){
-//    return view('confirmacion-registro');
-//})->name('registrar-proyecto.confirmacion');
+Route::get('/error_registro', function () {
+    return view('error.error_crear');
+})->name(('error_registro'));
