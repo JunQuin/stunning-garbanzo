@@ -17,14 +17,14 @@ class SessionController extends Controller
     {
         return view('iniciar-sesion');
     }
-    
+
     /**
      * Handle an authentication attempt.
      *
      * @param Request $request
      * @return Application|Factory|View|RedirectResponse
      */
-    
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -56,11 +56,8 @@ class SessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::logout();
-
         $request->session()->flush();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
