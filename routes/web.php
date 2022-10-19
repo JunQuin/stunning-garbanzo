@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminSessionController;
+use App\Http\Controllers\Admin\AdminUsersController;
+use App\Http\Controllers\Admin\FileViewer;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\ProyectoController;
@@ -7,7 +10,6 @@ use App\Http\Controllers\ReciboController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +53,15 @@ Route::resource('/recibo', ReciboController::class)->middleware('auth');
 Route::get('/error_registro', function () {
     return view('error.error_crear');
 })->name(('error_registro'));
+
+/*
+ * ADMIN ROUTES
+ */
+
+Route::resource('/admin-users', AdminUsersController::class);
+Route::get('/admin-dashboard/{id?}', [AdminSessionController::class, 'index'])->name('admin.dashboard.index')->middleware('admin.auth');
+Route::get('/admin-file-Viewer-recibo/{url?}', [FileViewer::class, 'showRecibo'])->name('admin.view.recibo')->middleware('admin.auth');
+Route::get('/admin-file-Viewer-documento/{url?}', [FileViewer::class, 'showDocumento'])->name('admin.view.documento')->middleware('admin.auth');
+Route::get('/admin-file-Viewer-bitacora/{url?}', [FileViewer::class, 'showBitacora'])->name('admin.view.bitacora')->middleware('admin.auth');
+Route::get('/admin-login', [AdminSessionController::class, 'show'])->name('admin.login.show')->middleware('admin.guest');
+Route::post('/admin-login', [AdminSessionController::class, 'authenticate'])->name('admin.login.authenticate')->middleware('admin.guest');
