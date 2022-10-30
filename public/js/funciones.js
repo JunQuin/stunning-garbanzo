@@ -11,3 +11,7 @@ function goToVideo(param) {
     }
     return false;
 }
+
+$(window).focus(function () {
+    location.reload();
+});

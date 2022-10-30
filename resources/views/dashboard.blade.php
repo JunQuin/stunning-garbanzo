@@ -5,6 +5,7 @@
         <section class="body-font">
             <div class="container px-5 py-10 mx-auto">
                 <div class="flex flex-col text-center w-full mb-10">
+                    {{-- @dd(session('userId')) --}}
                     <h1 class="font-bold text-3xl title-font mb-4 text-white">
                         {{ $project->pro_nombre }}
                     </h1>
@@ -30,7 +31,9 @@
                         <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
                             <div class="flex-grow">
                                 <h2 class="text-gray-200 title-font font-bold text-2xl"> {{ __('Participantes') }}</h2>
-                                <p class="text-lg text-gray-100 capitalize"> {{ $project->par1_nombre . ' ' . $project->par1_apellidos }} Y {{ $project->par2_nombre . ' ' . $project->par2_apellidos }}</p>
+                                <p class="text-lg text-gray-100 capitalize">
+                                    {{ $project->par1_nombre . ' ' . $project->par1_apellidos }} Y
+                                    {{ $project->par2_nombre . ' ' . $project->par2_apellidos }}</p>
                             </div>
                         </div>
                     </div>
@@ -144,65 +147,67 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col text-center w-full mt-6 my-4">
-                    <h1 class="font-bold text-2xl title-font mb-4 text-gray-100">
-                        Datos del Participante 2
-                    </h1>
-                </div>
-                <div class="flex flex-wrap -m-2">
-                    <div class="p-2 lg:w-1/3 w-full">
-                        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
-                            <div class="flex-grow">
-                                <h2 class="text-gray-200 title-font font-bold text-2xl"> {{ __('Nombre') }}</h2>
-                                <p class="text-lg text-gray-100 capitalize">
-                                    {{ $project->par2_nombre . ' ' . $project->par2_apellidos }}</p>
+                @isset($project->par2_nombre)
+                    <div class="flex flex-col text-center w-full mt-6 my-4">
+                        <h1 class="font-bold text-2xl title-font mb-4 text-gray-100">
+                            Datos del Participante 2
+                        </h1>
+                    </div>
+                    <div class="flex flex-wrap -m-2">
+                        <div class="p-2 lg:w-1/3 w-full">
+                            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-200 title-font font-bold text-2xl"> {{ __('Nombre') }}</h2>
+                                    <p class="text-lg text-gray-100 capitalize">
+                                        {{ $project->par2_nombre . ' ' . $project->par2_apellidos }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 lg:w-1/3 w-full">
+                            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-200 title-font font-bold text-2xl capitalize"> {{ __('Telefono') }}
+                                    </h2>
+                                    <p class="text-lg text-gray-100 capitalize">{{ $project->par2_telefono }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 lg:w-1/3 w-full">
+                            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-200 title-font font-bold text-2xl capitalize"> {{ __('Correo') }}
+                                    </h2>
+                                    <p class="text-lg text-gray-100">{{ $project->par2_correo }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="p-2 lg:w-1/3 w-full">
-                        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
-                            <div class="flex-grow">
-                                <h2 class="text-gray-200 title-font font-bold text-2xl capitalize"> {{ __('Telefono') }}
-                                </h2>
-                                <p class="text-lg text-gray-100 capitalize">{{ $project->par2_telefono }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-2 lg:w-1/3 w-full">
-                        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
-                            <div class="flex-grow">
-                                <h2 class="text-gray-200 title-font font-bold text-2xl capitalize"> {{ __('Correo') }}
-                                </h2>
-                                <p class="text-lg text-gray-100">{{ $project->par2_correo }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="flex justify-center pt-2 -m-2">
-                    <div class="p-2 lg:w-1/3">
-                        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
-                            <div class="flex-grow">
-                                <h2 class="text-gray-200 title-font font-bold text-2xl capitalize">
-                                    {{ __('Escuela de procedencia') }}</h2>
-                                <p class="text-lg text-gray-100 capitalize">{{ $project->par2_procedencia }}</p>
+                    <div class="flex justify-center pt-2 -m-2">
+                        <div class="p-2 lg:w-1/3">
+                            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-200 title-font font-bold text-2xl capitalize">
+                                        {{ __('Escuela de procedencia') }}</h2>
+                                    <p class="text-lg text-gray-100 capitalize">{{ $project->par2_procedencia }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 lg:w-1/3">
+                            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-200 title-font font-bold text-2xl capitalize">
+                                        {{ __('Nivel Educativo') }}
+                                    </h2>
+                                    <p class="text-lg text-gray-100 capitalize">
+                                        {{ $project->par2_niveleducativo == 1 ? 'Primaria' : '' }}
+                                        {{ $project->par2_niveleducativo == 2 ? 'Secundaria' : '' }}
+                                        {{ $project->par2_niveleducativo == 3 ? 'Preparatoria' : '' }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="p-2 lg:w-1/3">
-                        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-orange-950">
-                            <div class="flex-grow">
-                                <h2 class="text-gray-200 title-font font-bold text-2xl capitalize">
-                                    {{ __('Nivel Educativo') }}
-                                </h2>
-                                <p class="text-lg text-gray-100 capitalize">
-                                    {{ $project->par2_niveleducativo == 1 ? 'Primaria' : '' }}
-                                    {{ $project->par2_niveleducativo == 2 ? 'Secundaria' : '' }}
-                                    {{ $project->par2_niveleducativo == 3 ? 'Preparatoria' : '' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endisset
 
                 <div class="flex flex-col text-center w-full mt-6 my-4">
                     <h1 class="font-bold text-2xl title-font mb-4 text-gray-100">

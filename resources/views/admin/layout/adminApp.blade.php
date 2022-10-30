@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-        <!-- Head Contents -->
+    <!-- Head Contents -->
 
     @stack('scripts')
 
@@ -22,10 +23,9 @@
                 <div class="container mx-auto px-4">
                     <div class="flex justify-between">
                         <div class="py-4 pr-4 lg:border-r justify-center">
-                            <a class="inline-block text-xl text-white font-medium font-heading"
-                                href="#">
+                            <a class="inline-block text-xl text-white font-medium font-heading" href="#">
                                 {{-- <img class="h-8" width="auto" src="https://foro.inei.edu.mx/img/logoineiblanco.png" --}}
-                                    {{-- alt="Logo INEI"> --}}
+                                {{-- alt="Logo INEI"> --}}
                             </a>
                         </div>
                         <div
@@ -53,15 +53,13 @@
                                         </a>
                                     @endguest
                                     @auth('admin_users')
-                                        <li class="nav-item dropdown pb-2">
-                                            <a id="navbarDropdown" style="text-transform: uppercase;"
-                                                class="nav-link dropdown-toggle" href="#" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <li class="">
+                                            <span id="" style="text-transform: uppercase;">
                                                 {{ __(session('userName')) }}
-                                            </a>
+                                            </span>
 
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <div class="m-1 text-center" aria-labelledby="navbarDropdown">
+                                                <a class="text-white" href="{{ route('logout') }}"
                                                     onclick="preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                     {{ __('Cerrar Sesión') }}
@@ -81,14 +79,15 @@
             </nav>
         </div>
         <div>
-            @auth
-                <nav class="bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5  rounded">
+            @auth('admin_users')
+                <nav class="bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5">
                     <div class="container flex flex-col justify-between items-center mx-auto antialiased text-body">
                         <div class="w-full md:block md:w-auto" id="mobile-menu">
                             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                                 <li>
-                                    <a href="{{ route('proyecto.dashboard') }}"
-                                        class="{{ request()->is('dashboard') || request()->is('/') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} mx-auto block py-2 pr-4 pl-3 rounded">Home</a>
+                                    <a href="{{ route('admin.dashboard.index', ['id' => session('userId')]) }}"
+                                        class="{{ request()->is('admin-dashboard/' . session('userId')) ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} mx-auto block py-2 pr-4 pl-3 rounded">Listado
+                                        Proyectos</a>
                                 </li>
                                 {{-- <li>
                                     <a href="{{ route('proyecto.edit') }}"
@@ -97,24 +96,15 @@
                                 </li> --}}
                                 <li>
                                     <a href="{{ route('bitacora.create') }}"
-                                        class="{{ request()->is('bitacora/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">Subir
-                                        Bitacora</a>
+                                        class="{{ request()->is('bitacora/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                        Jueces</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('documento.create') }}"
-                                        class="{{ request()->is('documento/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">Subir
-                                        Proyecto</a>
+                                        class="{{ request()->is('documento/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                        Asignación de Jueces</a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('video.create') }}"
-                                        class="{{ request()->is('video/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">Subir
-                                        Link del Video</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('recibo.create') }}"
-                                        class="{{ request()->is('recibo/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">Subir
-                                        Recibo de pago</a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

@@ -38,8 +38,7 @@ class SessionController extends Controller
             $user = DB::table('users')->where('email', request('email'))->first();
             session(['userName' => $user->name]);
             session(['userId' => $user->id]);
-            $project = ClsDataGetter::dashboardData($user->id);
-            return view('dashboard')->with(['project' => $project]);
+            return redirect()->route('proyecto.dashboard');
         }
 
         return back()->withErrors([
@@ -70,7 +69,7 @@ class SessionController extends Controller
             $project = ClsDataGetter::dashboardData($userid);
             return view('dashboard')->with(['project' => $project]);
         } else {
-            return view('index');
+            return view('iniciar-sesion');
         }
     }
 }

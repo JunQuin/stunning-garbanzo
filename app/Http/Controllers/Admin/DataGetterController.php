@@ -27,7 +27,18 @@ class DataGetterController extends Controller
     public static function adminDashboardAllProjectsData()
     {
         $allProyectsData = DB::table('dashboarddataview')
-        ->where('status', '=', 1)->get();
+            ->where('status', '=', 1)
+            ->orderBy('pro_nombre')
+            ->get();
         return ($allProyectsData);
+    }
+
+    public static function adminDashboardProjectData($id)
+    {
+        $proyectsData = DB::table('dashboarddataview')
+            ->where('status', '=', 1)
+            ->where('pro_id', '=', $id)
+            ->first();
+        return ($proyectsData);
     }
 }

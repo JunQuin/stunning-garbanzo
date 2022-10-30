@@ -156,12 +156,14 @@ class ProyectoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Proyecto $proyecto
+     * @param \App\Models\User $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proyecto $proyecto)
+    public function destroy($proyecto)
     {
-        //
+        $proyecto = User::findOrFail($proyecto);
+        $proyecto->delete();
+        return back()->with('success', 'Eliminado correctamente');
     }
 
     public function dashboard()

@@ -459,6 +459,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/registrar-proyecto.js') }}"></script>
+    <script src="{{ asset('js/projects.js') }}"></script>
 
 @endsection
