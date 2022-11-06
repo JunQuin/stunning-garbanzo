@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 
@@ -161,8 +162,24 @@ class ProyectoController extends Controller
      */
     public function destroy($proyecto)
     {
+        $bitacora = DB::table('users')->select('bitacoras')->where('id', $proyecto)->first();
+        if (Storage::disk('bitacoras')->exists($bitacora->bitacoras)) {
+            Storage::disk('bitacoras')->delete($bitacora->bitacoras);
+        }
+
+        $documento = DB::table('users')->select('document')->where('id', $proyecto)->first();
+        if (Storage::disk('documentos')->exists($documento->document)) {
+            Storage::disk('documentos')->delete($documento->document);
+        }
+
+        $payment = DB::table('users')->select('payment')->where('id', $proyecto)->first();
+        if (Storage::disk('recibos')->exists($payment->payment)) {
+            Storage::disk('recibos')->delete($payment->payment);
+        }
+
         $proyecto = User::findOrFail($proyecto);
         $proyecto->delete();
+
         return back()->with('success', 'Eliminado correctamente');
     }
 

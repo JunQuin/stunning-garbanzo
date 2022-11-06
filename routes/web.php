@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminJuecesController;
+use App\Http\Controllers\Admin\AdminProyectoJuecesController;
 use App\Http\Controllers\Admin\PorjectViewerController;
 use App\Http\Controllers\Admin\AdminSessionController;
 use App\Http\Controllers\Admin\AdminUsersController;
@@ -63,11 +65,13 @@ Route::get('/error_registro', function () {
 */
 
 Route::resource('/admin-users', AdminUsersController::class);
+Route::get('/admin-login', [AdminSessionController::class, 'show'])->name('admin.login.show')->middleware('admin.guest');
+Route::post('/admin-login', [AdminSessionController::class, 'authenticate'])->name('admin.login.authenticate')->middleware('admin.guest');
 Route::get('/admin-dashboard/{id?}', [AdminSessionController::class, 'index'])->name('admin.dashboard.index')->middleware('admin.auth');
 Route::get('/admin-file-Viewer-recibo/{url?}', [FileViewer::class, 'showRecibo'])->name('admin.view.recibo')->middleware('admin.auth');
 Route::get('/admin-file-Viewer-documento/{url?}', [FileViewer::class, 'showDocumento'])->name('admin.view.documento')->middleware('admin.auth');
 Route::get('/admin-file-Viewer-bitacora/{url?}', [FileViewer::class, 'showBitacora'])->name('admin.view.bitacora')->middleware('admin.auth');
-Route::get('/admin-login', [AdminSessionController::class, 'show'])->name('admin.login.show')->middleware('admin.guest');
-Route::post('/admin-login', [AdminSessionController::class, 'authenticate'])->name('admin.login.authenticate')->middleware('admin.guest');
 Route::get('/admin-view-project/{id?}',[PorjectViewerController::class,'show'])->name('admin.view.project')->middleware('admin.auth');
 Route::post('/delete-project/{id}', [ProyectoController::class, 'destroy'])->name('proyecto.destroy')->middleware('admin.auth');
+Route::resource('/admin-jueces', AdminJuecesController::class)->middleware('admin.auth');
+Route::resource('/admin-proyecto-juez', AdminProyectoJuecesController::class)->middleware('admin.auth');

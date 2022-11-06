@@ -80,7 +80,7 @@
         </div>
         <div>
             @auth('admin_users')
-                <nav class="bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5">
+                <nav class="bg-red-900 border-gray-200 px-2 sm:px-4 py-2.5">
                     <div class="container flex flex-col justify-between items-center mx-auto antialiased text-body">
                         <div class="w-full md:block md:w-auto" id="mobile-menu">
                             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
@@ -95,16 +95,15 @@
                                         información del registro</a>
                                 </li> --}}
                                 <li>
-                                    <a href="{{ route('bitacora.create') }}"
-                                        class="{{ request()->is('bitacora/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                    <a href="{{ route('admin-jueces.index') }}"
+                                        class="{{ request()->is('admin-jueces') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
                                         Jueces</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('documento.create') }}"
-                                        class="{{ request()->is('documento/create') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                    <a href="{{ route('admin-proyecto-juez.index') }}"
+                                        class="{{ request()->is('admin-proyecto-juez') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
                                         Asignación de Jueces</a>
                                 </li>
-
                             </ul>
                         </div>
                     </div>

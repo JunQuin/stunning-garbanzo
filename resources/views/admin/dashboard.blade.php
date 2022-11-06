@@ -5,7 +5,7 @@
 
     <div class="px-8">
         <h2 class="mb-4 mt-2 text-2xl text-white font-bold">Listado de proyectos - logeado como:
-            {{ __($sessionData->rol == 1 ? 'Admin' : Juez) }}</h2>
+            {{ __($sessionData->rol == 1 ? 'Admin' : 'Juez') }}</h2>
         @isset($sessionData)
             @if ($sessionData->rol == 1)
                 <div class="my-4">

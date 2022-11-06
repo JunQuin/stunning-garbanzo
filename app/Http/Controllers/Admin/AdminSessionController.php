@@ -43,6 +43,11 @@ class AdminSessionController extends Controller
 
     public function authenticate(Request $request)
     {
+        Auth::logout();
+        $request->session()->flush();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -55,6 +60,7 @@ class AdminSessionController extends Controller
             session(['userName' => $user->nombre]);
             session(['userCorreo' => $user->email]);
             session(['userId' => $user->id]);
+            session(['userRol' => $user->rol]);
             return redirect()->route('admin.dashboard.index', ['id' => $user->id]);
         }
 
