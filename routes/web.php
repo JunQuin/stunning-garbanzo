@@ -26,23 +26,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [SessionController::class, 'checkLogin'])->name('index');
-
-Route::get('/login', [SessionController::class, 'show'])->name('login.show')->middleware('guest');
-
-Route::post('/login', [SessionController::class, 'authenticate'])->name('login')->middleware('guest');
-
-Route::get('/logout', [SessionController::class, 'destroy'])->name('logout')->middleware('auth');
-
-Route::get('/registrar-proyecto', [ProyectoController::class, 'create'])->name('proyecto.create')->middleware('guest');
-
-Route::post('/registrar-proyecto.store', [ProyectoController::class, 'store'])->name('proyecto.store');
-
-Route::get('/dashboard', [ProyectoController::class, 'dashboard'])->name('proyecto.dashboard')->middleware('auth');
-
-Route::get('/editar-proyecto', [ProyectoController::class, 'edit'])->name('proyecto.edit')->middleware('auth');
-
 Route::get('hashMake/{string}', [HashController::class, 'HashMaker']);
+Route::get('/', [SessionController::class, 'checkLogin'])->name('index');
+Route::post('/registrar-proyecto.store', [ProyectoController::class, 'store'])->name('proyecto.store');
+Route::get('/login', [SessionController::class, 'show'])->name('login.show')->middleware('guest');
+Route::post('/login', [SessionController::class, 'authenticate'])->name('login')->middleware('guest');
+Route::get('/registrar-proyecto', [ProyectoController::class, 'create'])->name('proyecto.create')->middleware('guest');
+Route::get('/logout', [SessionController::class, 'destroy'])->name('logout')->middleware('auth');
+Route::get('/dashboard', [ProyectoController::class, 'dashboard'])->name('proyecto.dashboard')->middleware('auth');
+Route::get('/editar-proyecto', [ProyectoController::class, 'edit'])->name('proyecto.edit')->middleware('auth');
 
 /*
 * CARGA DE ARCHIVOS
@@ -65,8 +57,9 @@ Route::get('/error_registro', function () {
 */
 
 Route::resource('/admin-users', AdminUsersController::class);
-Route::get('/admin-login', [AdminSessionController::class, 'show'])->name('admin.login.show')->middleware('admin.guest');
-Route::post('/admin-login', [AdminSessionController::class, 'authenticate'])->name('admin.login.authenticate')->middleware('admin.guest');
+Route::get('/admin-login', [AdminSessionController::class, 'show'])->name('admin.login.show');
+Route::post('/admin-login', [AdminSessionController::class, 'authenticate'])->name('admin.login.authenticate');
+Route::get('/admin-logout', [AdminSessionController::class, 'destroy'])->name('admin.logout');
 Route::get('/admin-dashboard/{id?}', [AdminSessionController::class, 'index'])->name('admin.dashboard.index')->middleware('admin.auth');
 Route::get('/admin-file-Viewer-recibo/{url?}', [FileViewer::class, 'showRecibo'])->name('admin.view.recibo')->middleware('admin.auth');
 Route::get('/admin-file-Viewer-documento/{url?}', [FileViewer::class, 'showDocumento'])->name('admin.view.documento')->middleware('admin.auth');

@@ -20,46 +20,46 @@
     <div class="flex flex-col h-screen">
         <div class="bg-red-900">
             <nav class="relative bg-transparent border-b">
-                <div class="container mx-auto px-4">
+                <div class="mx-auto px-4">
                     <div class="flex justify-between">
                         <div class="py-4 pr-4 lg:border-r justify-center">
-                            <a class="inline-block text-xl text-white font-medium font-heading" href="#">
-                                {{-- <img class="h-8" width="auto" src="https://foro.inei.edu.mx/img/logoineiblanco.png" --}}
-                                {{-- alt="Logo INEI"> --}}
+                            <a class="inline-block text-xl text-white font-medium font-heading"
+                                href="{{ route('index') }}">
+                                <img class="h-8" width="auto" src="https://foro.inei.edu.mx/img/logoineiblanco.png"
+                                    alt="Logo INEI">
                             </a>
                         </div>
                         <div
                             class="lg:block py-8 lg:absolute lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-y-1/2 lg:-translate-x-1/2">
                             <ul class="flex justify-center">
-                                <li class="mx-6"><a class="hover:text-gray-300 text-gray-100" target="_BLANK"
+                                <li class="mr-12"><a class="hover:text-gray-300 text-gray-100" target="_BLANK"
                                         href="images/bannerfojem.jpg">Convocatoria</a></li>
-                                <li class="mx-6"><a class="text-gray-100 hover:text-gray-300" target="_BLANK"
+                                <li class="mr-12"><a class="text-gray-100 hover:text-gray-300" target="_BLANK"
                                         href="documents/fojemguiaparticipante.pdf">Guía del
                                         participante</a>
                                 </li>
-                                <li class="mx-6"><a class="text-gray-100 hover:text-gray-300">Proyectos
-                                        Registrados</a></li>
                             </ul>
                         </div>
                         <div class="lg:flex ml-auto items-center border-l">
-
-                            <div class="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="ml-4 navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto">
                                     @guest('admin_users')
-                                        {{-- <a class="inline-flex items-center justify-center py-3 px-6 transform duration-200 text-gray-600 hover:underline hover:text-gray-600"> --}}
-                                        <a class="inline-flex items-center justify-center py-3 px-6 transform duration-200 text-white hover:underline hover:text-gray-300"
+                                        <a class="inline-flex items-center justify-center py-3transform duration-200 text-white hover:underline hover:text-gray-300"
                                             href="{{ route('admin.login.show') }}">
                                             <span class="font-heading">Iniciar Sesión</span>
                                         </a>
                                     @endguest
                                     @auth('admin_users')
-                                        <li class="">
-                                            <span id="" style="text-transform: uppercase;">
+                                        <li class="nav-item dropdown pb-2">
+                                            <a id="navbarDropdown" style="text-transform: uppercase;"
+                                                class="nav-link dropdown-toggle" href="#" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                                 {{ __(session('userName')) }}
-                                            </span>
+                                            </a>
 
-                                            <div class="m-1 text-center" aria-labelledby="navbarDropdown">
-                                                <a class="text-white" href="{{ route('logout') }}"
+                                            <div class="dropdown-menu dropdown-menu-right"
+                                                aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                                     onclick="preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                     {{ __('Cerrar Sesión') }}
@@ -94,16 +94,18 @@
                                         class="{{ request()->is('editar-proyecto') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">Editar
                                         información del registro</a>
                                 </li> --}}
-                                <li>
-                                    <a href="{{ route('admin-jueces.index') }}"
-                                        class="{{ request()->is('admin-jueces') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
-                                        Jueces</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('admin-proyecto-juez.index') }}"
-                                        class="{{ request()->is('admin-proyecto-juez') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
-                                        Asignación de Jueces</a>
-                                </li>
+                                @if (session('userRol') == 1)
+                                    <li>
+                                        <a href="{{ route('admin-jueces.index') }}"
+                                            class="{{ request()->is('admin-jueces') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                            Jueces</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin-proyecto-juez.index') }}"
+                                            class="{{ request()->is('admin-proyecto-juez') ? 'bg-orange-900 text-blue-50 border' : 'text-gray-100 hover:text-gray-300 ' }} block py-2 pr-4 pl-3 rounded">
+                                            Asignación de Jueces</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

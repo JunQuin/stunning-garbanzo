@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminSessionController extends Controller
 {
@@ -28,9 +30,9 @@ class AdminSessionController extends Controller
             ]);
         }
         Auth::logout();
-        session()->flush();
-        session()->invalidate();
-        session()->regenerateToken();
+        Session::invalidate();
+        // dd($request->session()->all());
+        // $request->session()->regenerateToken();
         return redirect()->route('admin.login.show');
     }
 
@@ -44,8 +46,9 @@ class AdminSessionController extends Controller
     public function authenticate(Request $request)
     {
         Auth::logout();
-        $request->session()->flush();
+
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
         $credentials = $request->validate([
@@ -54,8 +57,8 @@ class AdminSessionController extends Controller
         ]);
         //        $credentials['password'] = Hash::make($credentials['password']);
         //        dd($credentials);
-        if (Auth::guard('admin_users')->attempt($credentials, true)) {
-            $request->session()->regenerate();
+        if (Auth::guard('admin_users')->attempt($credentials, false)) {
+            $request->session('admin_users')->regenerate();
             $user = DB::table('admin_users')->where('email', request('email'))->first();
             session(['userName' => $user->nombre]);
             session(['userCorreo' => $user->email]);
@@ -67,5 +70,21 @@ class AdminSessionController extends Controller
         return back()->withErrors([
             'email' => 'Las credenciales no coinciden con nuestros registros.',
         ]);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     * @return Application|Redirector|RedirectResponse
+     */
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+        return redirect()->route('admin.login.show');
     }
 }

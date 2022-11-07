@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminGuestMiddleware
 {
@@ -17,10 +18,8 @@ class AdminGuestMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        Auth::logout();
-        $request->session()->flush();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::logout('admin_users');
+        Session::flush();
 
         return $next($request);
     }
