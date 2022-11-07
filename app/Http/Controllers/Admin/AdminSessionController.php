@@ -29,7 +29,7 @@ class AdminSessionController extends Controller
                 'proyectosData' => $proyectosData
             ]);
         }
-        Auth::logout();
+        Auth::guard('admin_users')->logout();
         Session::invalidate();
         // dd($request->session()->all());
         // $request->session()->regenerateToken();
@@ -45,7 +45,7 @@ class AdminSessionController extends Controller
 
     public function authenticate(Request $request)
     {
-        Auth::logout();
+        Auth::guard('admin_users')->logout();
 
         $request->session()->invalidate();
 
@@ -57,7 +57,7 @@ class AdminSessionController extends Controller
         ]);
         //        $credentials['password'] = Hash::make($credentials['password']);
         //        dd($credentials);
-        if (Auth::guard('admin_users')->attempt($credentials, false)) {
+        if (Auth::guard('admin_users')->attempt($credentials, true)) {
             $request->session('admin_users')->regenerate();
             $user = DB::table('admin_users')->where('email', request('email'))->first();
             session(['userName' => $user->nombre]);
@@ -80,7 +80,7 @@ class AdminSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::logout();
+        Auth::guard('admin_users')->logout();
 
         $request->session()->invalidate();
 
