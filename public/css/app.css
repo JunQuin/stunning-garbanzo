@@ -3125,9 +3125,6 @@ textarea.form-control.is-invalid {
 .m-2 {
   margin: 0.5rem;
 }
-.m-1 {
-  margin: 0.25rem;
-}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -3171,10 +3168,6 @@ textarea.form-control.is-invalid {
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-}
-.mx-6 {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
 }
 .mr-12 {
   margin-right: 3rem;

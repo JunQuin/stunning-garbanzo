@@ -33,7 +33,7 @@ class SessionController extends Controller
         ]);
         //        $credentials['password'] = Hash::make($credentials['password']);
         //        dd($credentials);
-        if (Auth::attempt($credentials, true)) {
+        if (Auth::guard('web')->attempt($credentials, true)) {
             $request->session()->regenerate();
             $user = DB::table('users')->where('email', request('email'))->first();
             session(['userName' => $user->name]);
@@ -54,7 +54,7 @@ class SessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         $request->session()->flush();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -64,9 +64,9 @@ class SessionController extends Controller
 
     public function checkLogin()
     {
-        if (Auth::check()) {
-            $userid = session('userId');
-            $project = ClsDataGetter::dashboardData($userid);
+        if (Auth::guard('web')->check()) {
+            $userId = session('userId');
+            $project = ClsDataGetter::dashboardData($userId);
             return view('dashboard')->with(['project' => $project]);
         } else {
             return view('index');

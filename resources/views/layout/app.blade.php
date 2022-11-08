@@ -43,18 +43,16 @@
                                 <li><a class="text-gray-600 hover:text-gray-600">Jueces</a></li>
                             </ul>
                         </div>
-                        <div class="lg:flex ml-auto items-center border-l">
-
-                            <div class="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
+                         <div class="lg:flex ml-auto items-center border-l">
+                            <div class="ml-4 navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto">
-                                    @guest
-                                        {{-- <a class="inline-flex items-center justify-center py-3 px-6 transform duration-200 text-gray-600 hover:underline hover:text-gray-600"> --}}
-                                        <a class="inline-flex items-center justify-center py-3 px-6 transform duration-200 text-white hover:underline hover:text-gray-300"
+                                    @guest('web')
+                                        <a class="inline-flex items-center justify-center py-3transform duration-200 text-white hover:underline hover:text-gray-300"
                                             href="{{ route('login.show') }}">
                                             <span class="font-heading">Iniciar Sesión</span>
                                         </a>
                                     @endguest
-                                    @auth
+                                    @auth('web')
                                         <li class="nav-item dropdown pb-2">
                                             <a id="navbarDropdown" style="text-transform: uppercase;"
                                                 class="nav-link dropdown-toggle" href="#" role="button"

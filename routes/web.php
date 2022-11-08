@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('hashMake/{string}', [HashController::class, 'HashMaker']);
-Route::get('/', [SessionController::class, 'checkLogin'])->name('index');
+Route::get('/', [SessionController::class, 'checkLogin'])->name('index')->middleware('guest');
 Route::post('/registrar-proyecto.store', [ProyectoController::class, 'store'])->name('proyecto.store');
 Route::get('/login', [SessionController::class, 'show'])->name('login.show')->middleware('guest');
 Route::post('/login', [SessionController::class, 'authenticate'])->name('login')->middleware('guest');
