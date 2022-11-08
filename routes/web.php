@@ -41,13 +41,9 @@ Route::get('/editar-proyecto', [ProyectoController::class, 'edit'])->name('proye
 **/
 
 Route::resource('/bitacora', BitacoraController::class)->middleware('auth');
-
 Route::resource('/documento', DocumentoController::class)->middleware('auth');
-
 Route::resource('/video', VideoController::class)->middleware('auth');
-
 Route::resource('/recibo', ReciboController::class)->middleware('auth');
-
 Route::get('/error_registro', function () {
     return view('error.error_crear');
 })->name(('error_registro'));

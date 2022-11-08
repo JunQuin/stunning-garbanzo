@@ -69,7 +69,7 @@ class SessionController extends Controller
             $project = ClsDataGetter::dashboardData($userid);
             return view('dashboard')->with(['project' => $project]);
         } else {
-            return view('iniciar-sesion');
+            return view('index');
         }
     }
 }
