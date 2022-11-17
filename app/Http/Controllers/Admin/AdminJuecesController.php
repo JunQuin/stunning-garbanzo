@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AdminJueces;
 use App\Models\Admin\AdminUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminJuecesController extends Controller
@@ -17,7 +18,7 @@ class AdminJuecesController extends Controller
      */
     public function index()
     {
-        $listadoJueces = adminJueces::where('status', 1)->get();
+        $listadoJueces = adminJueces::where('status', 1)->orderBy('nombre', 'asc')->get();
         return view('admin.jueces')->with(['listadoJueces' => $listadoJueces]);
     }
 
@@ -112,15 +113,20 @@ class AdminJuecesController extends Controller
      */
     public function destroy($id)
     {
-        $adminJuez = AdminJueces::findOrFail($id);
-        $adminUser = AdminUsers::where('email', $adminJuez->email)
-            ->where('celular', $adminJuez->celular)
-            ->where('rol', 2);
-        if ($adminJuez->delete  () && $adminUser->delete()) {
+        if (DB::table('admin_proyecto_jueces')->where('juez_id', '=', $id)->exists()) {
             return redirect()->route('admin-jueces.index')
-                ->with('status', 'Juez Eliminado Exitosamente!');
+                ->with('error', 'No se puede eliminar, está asignado a proyecto');
+        } else {
+            $adminJuez = AdminJueces::findOrFail($id);
+            $adminUser = AdminUsers::where('email', $adminJuez->email)
+                ->where('celular', $adminJuez->celular)
+                ->where('rol', 2);
+            if ($adminJuez->delete() && $adminUser->delete()) {
+                return redirect()->route('admin-jueces.index')
+                    ->with('status', 'Juez Eliminado Exitosamente!');
+            }
+            return redirect()->route('admin-jueces.index')
+                ->with('error', 'Juez No Encontrado!');
         }
-        return redirect()->route('admin-jueces.index')
-        ->with('error', 'Juez No Encontrado!');
     }
 }

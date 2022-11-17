@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\DataGetterController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 
 class AdminSessionController extends Controller
 {
@@ -46,9 +46,7 @@ class AdminSessionController extends Controller
     public function authenticate(Request $request)
     {
         Auth::guard('admin_users')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         $credentials = $request->validate([
@@ -86,5 +84,35 @@ class AdminSessionController extends Controller
 
         $request->session()->regenerateToken();
         return redirect()->route('admin.login.show');
+    }
+
+    public function makePdf()
+    {
+        $proyectos = DB::table('users')
+            ->select(
+                'name',
+                'participante1_Nombre',
+                'participante1_Apellidos',
+                'participante1_Telefono',
+                'participante1_InstitucionProcedencia',
+                'categorias.nombre',
+                'document',
+                'link',
+                'payment',
+                'bitacoras'
+            )
+            ->join('categorias', 'users.categoria', '=', 'categorias.id')
+            ->orderBy('name')
+            ->get();
+
+        // return dd($proyectos);
+
+        $pdf = App::make('dompdf.wrapper');
+
+        // $pdf->loadHTML(view('admin.proyectos-table'))->setPaper('legal', 'landscape');
+        $pdf->loadHTML(view('admin.proyectos-table', ['proyectos' => $proyectos]))->setPaper('legal', 'landscape');
+
+        // return view('admin.proyectos-table', ['proyectos' => $proyectos]);
+        return $pdf->stream('ListadoDe Proyectos FOJEM 20222' . 'pdf');
     }
 }

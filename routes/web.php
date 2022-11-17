@@ -64,3 +64,4 @@ Route::get('/admin-view-project/{id?}',[PorjectViewerController::class,'show'])-
 Route::post('/delete-project/{id}', [ProyectoController::class, 'destroy'])->name('proyecto.destroy')->middleware('admin.auth');
 Route::resource('/admin-jueces', AdminJuecesController::class)->middleware('admin.auth');
 Route::resource('/admin-proyecto-juez', AdminProyectoJuecesController::class)->middleware('admin.auth');
+Route::get('/admin-make-pdf', [AdminSessionController::class, 'makePdf'])->name('admin.createPdf')->middleware('admin.auth');

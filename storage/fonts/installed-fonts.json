@@ -1,0 +1,31 @@
+{
+    "dm sans": {
+        "normal": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/dm_sans_normal_97ad3dc9f70ee29e1641125dae688a52",
+        "500": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/dm_sans_500_d96b954b7113e1a4614976c1dcdac403",
+        "bold": "dm_sans_bold_87093361e683c7c0ada6b1d6fc52127e"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_fe9f8889de14dac4e5423b59c7c9c4d7"
+    },
+    "font awesome 6 free": {
+        "normal": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/font_awesome_6_free_normal_63ceaa3a26a25d15acc67a2a92a86505",
+        "900": "font_awesome_6_free_900_e28be8b0559d1fb8cc4e17872df29e2a"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_fe9f8889de14dac4e5423b59c7c9c4d7"
+    },
+    "font awesome 5 free": {
+        "900": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/font_awesome_5_free_900_e28be8b0559d1fb8cc4e17872df29e2a",
+        "normal": "font_awesome_5_free_normal_63ceaa3a26a25d15acc67a2a92a86505"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_06860fa9961d464ff5b77a2ec3345004"
+    },
+    "inter": {
+        "300": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/inter_300_6f003d6153bb6629d9efcdc027439d83",
+        "normal": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/inter_normal_4c1c39b2d60dc6de8a3bc272ce3fe7dc",
+        "500": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/inter_500_73384d6e47fd66bbc719b75497af932b",
+        "600": "\/home\/junquin\/projects\/fojemv2\/storage\/fonts\/inter_600_5fa3cee4db6b0338a4ce38a93c93ddd3",
+        "bold": "inter_bold_c57a050bb9f74fe1522e9f687ba11188"
+    }
+}

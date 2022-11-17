@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AdminJueces;
+use App\Models\User;
 use App\Models\Admin\AdminProyectoJueces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminProyectoJuecesController extends Controller
 {
@@ -15,8 +18,15 @@ class AdminProyectoJuecesController extends Controller
      */
     public function index()
     {
-        $u = AdminProyectoJueces::toSql();
-        dd('entra', $u);
+        // DataGetterController::adminDashboardJuezAsig(3);
+        $proyectosData = DataGetterController::adminDashboardAllProjectsData();
+        $jueces = DataGetterController::getJueces();
+        $juezAsign = DataGetterController::adminDashboardJuezAsig();
+        return view('admin/proyecto-juez')->with([
+            'proyectosData' => $proyectosData,
+            'jueces' => $jueces,
+            'juezAsign' => $juezAsign
+        ]);
     }
 
     /**
@@ -37,7 +47,33 @@ class AdminProyectoJuecesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->juez1) {
+            $juez = $request->juez1;
+        }
+        if ($request->juez2) {
+            $juez = $request->juez2;
+        }
+        if ($request->juez3) {
+            $juez = $request->juez3;
+        }
+
+        if (DB::table('admin_proyecto_jueces')->where('juez_id', '=', $juez)->where('proyecto_id', '=', $request->proyecto)->exists()) {
+            return redirect('admin-proyecto-juez')->with('error', 'Juez Asignado Previamente!');
+        } else {
+            if (DB::table('admin_proyecto_jueces')->where('proyecto_id', '=', $request->proyecto)->where('posicion', '=', $request->posicion)->exists()) {
+                DB::table('admin_proyecto_jueces')
+                ->where('proyecto_id', $request->proyecto)
+                ->where('posicion', $request->posicion)
+                ->update(['juez_id' => $juez]);
+                return redirect('admin-proyecto-juez')->with('status', 'Juez Actualizado Con Exito!');
+            }
+            AdminProyectoJueces::create([
+                'juez_id' => $juez,
+                'proyecto_id' => $request->proyecto,
+                'posicion' => $request->posicion
+            ]);
+            return redirect('admin-proyecto-juez')->with('status', 'Juez Asignado Con Exito!');
+        }
     }
 
     /**
