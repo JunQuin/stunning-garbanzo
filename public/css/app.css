@@ -3389,6 +3389,17 @@ textarea.form-control.is-invalid {
 .w-3\/4 {
   width: 75%;
 }
+.w-11\/12 {
+  width: 91.666667%;
+}
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.min-w-fit {
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
 .max-w-sm {
   max-width: 24rem;
 }
